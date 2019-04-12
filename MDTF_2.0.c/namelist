@@ -1,0 +1,28 @@
+# List all cases below with CASE tag at front of line
+# CASE casename model-type startyr endyr
+# Comment out any with # at start of line
+# Note that the mdtf package does not yet handle multiple cases
+
+#CASE QBOi.EXP1.AMIP.001 CESM 1977 1981
+CASE WRain.EXP1.slice.001 AM4 2008 2008
+
+# List all desired packages with POD tag at the start of the line
+# Comment out any with # at start of line
+
+#POD Wheeler_Kiladis
+#POD EOF_500hPa
+#POD precip_diurnal_cycle
+#POD convective_transition_diag
+#POD MJO_suite
+#POD MJO_teleconnection
+POD CFODD_warm_rain_microphysics
+
+
+# List any envvars to be set here with VAR tag at the start of the line
+# These will override any settings in mdtf.py
+VAR make_variab_tar 1
+VAR verbose 1 # 0-minimal,1-normal,2-copious,3-debug
+#VAR NCARG_ROOT "/glade/u/apps/ch/opt/ncl/6.4.0/intel/17.0.1"   #ncar only
+VAR CLEAN  0  # don't remove existing files
+VAR test_mode False  #True = script just reports what it would do, doesn't call actual packages
+

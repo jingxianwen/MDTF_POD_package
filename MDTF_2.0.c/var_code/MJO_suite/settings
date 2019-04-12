@@ -1,0 +1,7 @@
+# ==================================================================================================
+# 6.  MJO diagnostics suite (from AMWG variability diagnostic package)
+#     This uses daily fields of pr, rlut, u200, v200, u850, v850. 
+#     the code is in NCL
+# ==================================================================================================
+driver MJO_suite.py
+long_name MJO diagnostics suite (from AMWG variability diagnostic package)

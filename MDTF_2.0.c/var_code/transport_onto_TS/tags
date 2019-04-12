@@ -1,0 +1,170 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AMOC_T2B_from_climate	AMOC_T2B_from_climate.py	/^def AMOC_T2B_from_climate(model,DIR_in,DIR_out):$/;"	f
+AMOC_T2B_from_climate	transport_onto_TS.py	/^from AMOC_T2B_from_climate import AMOC_T2B_from_climate$/;"	i
+AMOC_qts_from_yearly	AMOC_qts_from_yearly.py	/^def AMOC_qts_from_yearly(model,ncl_script):$/;"	f
+AMOC_qts_from_yearly	transport_onto_TS.py	/^from AMOC_qts_from_yearly import AMOC_qts_from_yearly$/;"	i
+DIR_in	basin_lat_dxdydz.py	/^DIR_in=os.environ["MONDIR"]$/;"	v
+DIR_in	transport_onto_TS.py	/^DIR_in=os.environ["MONDIR"]$/;"	v
+DIR_out	basin_lat_dxdydz.py	/^DIR_out=os.environ["OUTDIR"]$/;"	v
+DIR_out	transport_onto_TS.py	/^DIR_out=os.environ["OUTDIR"]$/;"	v
+MHT_MFWT_qts_from_yearly	MHT_MFWT_qts_from_yearly.py	/^def MHT_MFWT_qts_from_yearly(model,ncl_script):$/;"	f
+MHT_MFWT_qts_from_yearly	transport_onto_TS.py	/^from MHT_MFWT_qts_from_yearly import MHT_MFWT_qts_from_yearly$/;"	i
+a	obs_transport_onto_TS.py	/^      a = a + 1$/;"	v
+a	obs_transport_onto_TS.py	/^   a = a+1$/;"	v
+a	obs_transport_onto_TS.py	/^a = 0 $/;"	v
+cnt	html.py	/^            cnt = cnt +1$/;"	v
+cnt	html.py	/^      cnt = 24$/;"	v
+cnt	html.py	/^      cnt = 45$/;"	v
+create_BASIN	basin_lat_dxdydz.py	/^from create_BASIN_INDEX import create_BASIN$/;"	i
+create_BASIN	create_BASIN_INDEX.py	/^def create_BASIN(model,DIR_out,fname):$/;"	f
+create_INDEX	basin_lat_dxdydz.py	/^from create_BASIN_INDEX import create_INDEX$/;"	i
+create_INDEX	create_BASIN_INDEX.py	/^def create_INDEX(model,DIR_out,fname):$/;"	f
+execute_ncl_calculate	AMOC_T2B_from_climate.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	AMOC_qts_from_yearly.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	MHT_MFWT_qts_from_yearly.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	create_BASIN_INDEX.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	get_dxdydz_LatLon.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	interp_vit_to_viv_monthly.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	lat_extract.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	monthly_to_yearly.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	obs_transport_onto_TS.py	/^from recover_vmo_by_vo import execute_ncl_calculate$/;"	i
+execute_ncl_calculate	recover_vmo_by_vo.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	trans_lats_monthly.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	trans_wgt_TS_yearly.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	transport_onto_TS.py	/^from recover_vmo_by_vo import execute_ncl_calculate$/;"	i
+execute_ncl_calculate	transport_onto_TS_plot.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+execute_ncl_calculate	yearly_to_climate.py	/^def execute_ncl_calculate(nclPlotFile):$/;"	f
+file1	obs_transport_onto_TS.py	/^   file1 = os.environ["variab_dir"]+"\/transport_onto_TS\/obs\/PS\/"+files[a]$/;"	v
+file2	obs_transport_onto_TS.py	/^   file2 = os.environ["variab_dir"]+"\/transport_onto_TS\/obs\/"+files[a]$/;"	v
+files	obs_transport_onto_TS.py	/^files = os.listdir(os.environ["variab_dir"]+"\/transport_onto_TS\/obs\/PS\/")$/;"	v
+fname	basin_lat_dxdydz.py	/^fname="so"$/;"	v
+fname	basin_lat_dxdydz.py	/^fname="vo"$/;"	v
+fp	html.py	/^      fp = file(html)$/;"	v
+fp2	html.py	/^      fp2= file(html2, 'w')$/;"	v
+get_dxdydz_LatLon	basin_lat_dxdydz.py	/^from get_dxdydz_LatLon  import get_dxdydz_LatLon$/;"	i
+get_dxdydz_LatLon	get_dxdydz_LatLon.py	/^def get_dxdydz_LatLon(model,fname):$/;"	f
+glob	AMOC_T2B_from_climate.py	/^    import glob$/;"	i
+glob	AMOC_qts_from_yearly.py	/^    import glob$/;"	i
+glob	MHT_MFWT_qts_from_yearly.py	/^    import glob$/;"	i
+glob	basin_lat_dxdydz.py	/^import glob$/;"	i
+glob	get_dxdydz_LatLon.py	/^    import glob$/;"	i
+glob	interp_vit_to_viv_monthly.py	/^    import glob$/;"	i
+glob	monthly_to_yearly.py	/^    import glob$/;"	i
+glob	recover_vmo_by_vo.py	/^    import glob$/;"	i
+glob	trans_lats_monthly.py	/^    import glob$/;"	i
+glob	trans_wgt_TS_yearly.py	/^    import glob$/;"	i
+glob	transport_onto_TS.py	/^import glob$/;"	i
+glob	transport_onto_TS_plot.py	/^    import glob$/;"	i
+glob	yearly_to_climate.py	/^    import glob$/;"	i
+head	html.py	/^      head = lines[0:45]$/;"	v
+html	html.py	/^   html=os.environ["SRCDIR"]+"template.html"$/;"	v
+html2	html.py	/^   html2=os.environ["SRCDIR"]+"transport_onto_TS.html"$/;"	v
+i	html.py	/^            i=i.replace("CanESM2",model)$/;"	v
+interp_vit_to_viv_monthly	interp_vit_to_viv_monthly.py	/^def interp_vit_to_viv_monthly(model,DIR_in,DIR_out):$/;"	f
+interp_vit_to_viv_monthly	transport_onto_TS.py	/^from interp_vit_to_viv_monthly import interp_vit_to_viv_monthly$/;"	i
+lat_extract	basin_lat_dxdydz.py	/^from lat_extract        import lat_extract  $/;"	i
+lat_extract	lat_extract.py	/^def lat_extract(model,fname):$/;"	f
+lines	html.py	/^      lines = fp.readlines()$/;"	v
+missing_file	basin_lat_dxdydz.py	/^    missing_file=1$/;"	v
+missing_file	transport_onto_TS.py	/^    missing_file=missing_file+1$/;"	v
+missing_file	transport_onto_TS.py	/^missing_file=0$/;"	v
+model	basin_lat_dxdydz.py	/^model=os.environ["CASENAME"]$/;"	v
+model	transport_onto_TS.py	/^model=os.environ["CASENAME"]$/;"	v
+monthly_to_yearly	monthly_to_yearly.py	/^def monthly_to_yearly(model,DIR_in,DIR_out,fname,vname):$/;"	f
+monthly_to_yearly	transport_onto_TS.py	/^from monthly_to_yearly import monthly_to_yearly$/;"	i
+os	AMOC_T2B_from_climate.py	/^    import os$/;"	i
+os	AMOC_qts_from_yearly.py	/^    import os$/;"	i
+os	MHT_MFWT_qts_from_yearly.py	/^    import os$/;"	i
+os	basin_lat_dxdydz.py	/^import os$/;"	i
+os	create_BASIN_INDEX.py	/^    import os$/;"	i
+os	get_dxdydz_LatLon.py	/^    import os$/;"	i
+os	interp_vit_to_viv_monthly.py	/^    import os$/;"	i
+os	lat_extract.py	/^    import os$/;"	i
+os	monthly_to_yearly.py	/^    import os$/;"	i
+os	obs_transport_onto_TS.py	/^import os$/;"	i
+os	recover_vmo_by_vo.py	/^    import os$/;"	i
+os	trans_lats_monthly.py	/^    import os$/;"	i
+os	trans_wgt_TS_yearly.py	/^    import os$/;"	i
+os	transport_onto_TS.py	/^import os$/;"	i
+os	transport_onto_TS_plot.py	/^    import os$/;"	i
+os	yearly_to_climate.py	/^    import os$/;"	i
+partA	html.py	/^      partA= lines[45:61]$/;"	v
+partB	html.py	/^      partB= lines[85:97]$/;"	v
+recover_vmo_by_vo	recover_vmo_by_vo.py	/^def recover_vmo_by_vo(model,DIR_in,DIR_out):$/;"	f
+recover_vmo_by_vo	transport_onto_TS.py	/^from recover_vmo_by_vo import recover_vmo_by_vo$/;"	i
+s	html.py	/^      s = ''.join(head+tail)$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"obs_Q_lat0_z_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"obs_S_lat0_z_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"obs_T_lat0_z_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"obs_so_lat0_climate_xz_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"obs_thetao_lat0_climate_xz_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_AMOCS_S_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_AMOCS_yS_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_AMOCT_T_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_AMOCT_yT_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_AMOCr_r_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_AMOCr_yr_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_AMOCz_yz_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_MFWT_lats_y_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_MHT_lats_y_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_Qavg_lats_y_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_Swgt_lats_y_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_Twgt_lats_y_plot.ncl"$/;"	v
+script	obs_transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"ref_trans_lat0_climate_TS_plot.ncl"$/;"	v
+script	transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"sigma0_on_theta-salt_plane.ncl"$/;"	v
+script	transport_onto_TS.py	/^script=os.environ["SRCDIR"]+"sigma2_on_theta-salt_plane.ncl"$/;"	v
+shutil	AMOC_T2B_from_climate.py	/^    import shutil $/;"	i
+shutil	AMOC_qts_from_yearly.py	/^    import shutil $/;"	i
+shutil	MHT_MFWT_qts_from_yearly.py	/^    import shutil $/;"	i
+shutil	create_BASIN_INDEX.py	/^    import shutil $/;"	i
+shutil	get_dxdydz_LatLon.py	/^    import shutil $/;"	i
+shutil	interp_vit_to_viv_monthly.py	/^    import shutil $/;"	i
+shutil	lat_extract.py	/^    import shutil $/;"	i
+shutil	monthly_to_yearly.py	/^    import shutil $/;"	i
+shutil	recover_vmo_by_vo.py	/^    import shutil $/;"	i
+shutil	trans_lats_monthly.py	/^    import shutil $/;"	i
+shutil	trans_wgt_TS_yearly.py	/^    import shutil $/;"	i
+shutil	transport_onto_TS_plot.py	/^    import shutil $/;"	i
+shutil	yearly_to_climate.py	/^    import shutil $/;"	i
+single_ncl_test	transport_onto_TS.py	/^from transport_onto_TS_plot import single_ncl_test$/;"	i
+single_ncl_test	transport_onto_TS_plot.py	/^def single_ncl_test(model):$/;"	f
+so_nc	basin_lat_dxdydz.py	/^so_nc = os.environ["MONDIR"]+os.environ["CASENAME"]+"."+os.environ["so_var"]+".mon.nc"$/;"	v
+subprocess	AMOC_T2B_from_climate.py	/^    import subprocess$/;"	i
+subprocess	AMOC_T2B_from_climate.py	/^   import subprocess$/;"	i
+subprocess	AMOC_qts_from_yearly.py	/^    import subprocess$/;"	i
+subprocess	AMOC_qts_from_yearly.py	/^   import subprocess$/;"	i
+subprocess	MHT_MFWT_qts_from_yearly.py	/^    import subprocess$/;"	i
+subprocess	MHT_MFWT_qts_from_yearly.py	/^   import subprocess$/;"	i
+subprocess	create_BASIN_INDEX.py	/^    import subprocess$/;"	i
+subprocess	create_BASIN_INDEX.py	/^   import subprocess$/;"	i
+subprocess	get_dxdydz_LatLon.py	/^    import subprocess$/;"	i
+subprocess	get_dxdydz_LatLon.py	/^   import subprocess$/;"	i
+subprocess	interp_vit_to_viv_monthly.py	/^    import subprocess$/;"	i
+subprocess	interp_vit_to_viv_monthly.py	/^   import subprocess$/;"	i
+subprocess	lat_extract.py	/^    import subprocess$/;"	i
+subprocess	lat_extract.py	/^   import subprocess$/;"	i
+subprocess	monthly_to_yearly.py	/^    import subprocess$/;"	i
+subprocess	monthly_to_yearly.py	/^   import subprocess$/;"	i
+subprocess	recover_vmo_by_vo.py	/^    import subprocess$/;"	i
+subprocess	recover_vmo_by_vo.py	/^   import subprocess$/;"	i
+subprocess	trans_lats_monthly.py	/^    import subprocess$/;"	i
+subprocess	trans_lats_monthly.py	/^   import subprocess$/;"	i
+subprocess	trans_wgt_TS_yearly.py	/^    import subprocess$/;"	i
+subprocess	trans_wgt_TS_yearly.py	/^   import subprocess$/;"	i
+subprocess	transport_onto_TS_plot.py	/^    import subprocess$/;"	i
+subprocess	transport_onto_TS_plot.py	/^   import subprocess$/;"	i
+subprocess	yearly_to_climate.py	/^    import subprocess$/;"	i
+subprocess	yearly_to_climate.py	/^   import subprocess$/;"	i
+tail	html.py	/^      tail = lines[61:85]$/;"	v
+trans_lats_monthly	trans_lats_monthly.py	/^def trans_lats_monthly(model,DIR_in,DIR_out):$/;"	f
+trans_lats_monthly	transport_onto_TS.py	/^from trans_lats_monthly import trans_lats_monthly$/;"	i
+trans_wgt_TS_yearly	trans_wgt_TS_yearly.py	/^def trans_wgt_TS_yearly(model):$/;"	f
+trans_wgt_TS_yearly	transport_onto_TS.py	/^from trans_wgt_TS_yearly import trans_wgt_TS_yearly$/;"	i
+vo_nc	basin_lat_dxdydz.py	/^vo_nc = os.environ["MONDIR"]+os.environ["CASENAME"]+"."+os.environ["vo_var"]+".mon.nc"$/;"	v
+yearly_to_climate	transport_onto_TS.py	/^from yearly_to_climate import yearly_to_climate$/;"	i
+yearly_to_climate	yearly_to_climate.py	/^def yearly_to_climate(model,DIR_in,DIR_out,fname,vname):$/;"	f

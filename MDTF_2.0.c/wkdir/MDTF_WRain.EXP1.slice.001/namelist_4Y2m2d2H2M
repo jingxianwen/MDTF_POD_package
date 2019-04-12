@@ -1,0 +1,17 @@
+CASE WRain.EXP1.slice.001 AM4 2008 2008
+POD CFODD_warm_rain_microphysics
+VAR test_mode False
+VAR verbose 1
+VAR RGB /Volumes/cumulus/MDTF_20190304/mdtf_rundir/MDTF_2.0.c_cfodd/var_code/util/rgb
+VAR VARDATA /Volumes/cumulus/MDTF_20190304/mdtf_rundir/inputdata/obs_data/
+VAR DIAG_HOME /Volumes/cumulus/MDTF_20190304/mdtf_rundir/MDTF_2.0.c_cfodd
+VAR DATA_IN /Volumes/cumulus/MDTF_20190304/mdtf_rundir/inputdata/
+VAR VARCODE /Volumes/cumulus/MDTF_20190304/mdtf_rundir/MDTF_2.0.c_cfodd/var_code
+VAR DATADIR /Volumes/cumulus/MDTF_20190304/mdtf_rundir/inputdata/model/WRain.EXP1.slice.001
+VAR make_variab_tar 1
+VAR NCL /opt/local/var/ncl/bin/ncl
+
+VAR CLEAN 0
+VAR DIAG_ROOT /Volumes/cumulus/MDTF_20190304/mdtf_rundir
+VAR variab_dir /Volumes/cumulus/MDTF_20190304/mdtf_rundir/MDTF_2.0.c_cfodd/wkdir/MDTF_WRain.EXP1.slice.001
+VAR WKDIR /Volumes/cumulus/MDTF_20190304/mdtf_rundir/MDTF_2.0.c_cfodd/wkdir

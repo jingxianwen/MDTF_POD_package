@@ -1,0 +1,17 @@
+# ==================================================================================================
+# 7. Contoured Frequency by Optical Depth Diagram (CFODD) for warm rain mirophysics. 
+#    Required variables:
+#     (1) radar reflectivity and cloud_type info (subcolumn) from cloud
+#         simulator (e.g. COSP).
+#     (2) cloud optical depth at each model layer.
+#     (3) effective radius of cloud droplets at cloud top (or. droplet effective radius profile).
+#     (4) cloud water and ice mixing ratio at each model layer (for warm cloud identification)
+#     (5) atmospheric temperature profiles (for warm cloud identification).
+#    Note: all variables should be provided as timeslice output.
+#     the code is in NCL
+# ==================================================================================================
+
+driver    CFODD_warm_rain_microphysics.py
+long_name Contoured Frequency by Optical Depth Diagram (CFODD) for warm rain mirophysics
+
+
