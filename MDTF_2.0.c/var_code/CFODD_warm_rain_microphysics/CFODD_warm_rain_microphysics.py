@@ -2,7 +2,7 @@
 # CFODD_warm_rain_microphysics.py
 # Contoured Frequency by Optical Depth Diagram (CFODD). 
 #
-# version 1.0
+# Version 2.0 (April 21, 2019)
 # Contributors: X. Jing (AORI, U-Tokyo), K. Suzuki (AORI, U-Tokyo).
 #
 # Currently consists of following functionalities:
@@ -14,15 +14,18 @@
 # Figure of observational data can be found under 
 #    ../../../inputdata/obs_data/CFODD_warm_rain_microphysics
 #
-# Required input:
-#   (1) radar reflectivity and cloud_type info (subcolumn) from cloud 
-#       simulator (e.g. COSP).
-#   (2) cloud optical depth at each model layer.
-#   (3) effective radius of cloud droplets at cloud top.
-#   (4) cloud water and ice mixing ratio at each model layer (for the
-#       determination of cloud-top position).
-#   (5) atmospheric temperature profiles (for the determination of warm clouds).
-# Note: all fields should be provided as timeslice output.
+#    Required variables (v2.0):
+#     (1) radar reflectivity (units: dBZ) and cloud_type info (=1: stratiform cloud; 
+#         =2: convective cloud) from cloud simulator (e.g. cospOUT%cloudsat_Ze_tot 
+#         and cospIN%frac_out from COSP2.0), on subcolumns.
+#     (2) cloud optical depth at each model layer.
+#     (3) effective radius of cloud droplets at cloud top (or. droplet effective radius profile).
+#     (4) cloud water and ice mixing ratio at each model layer (for warm cloud identification)
+#     (5) atmospheric temperature profiles (for warm cloud identification).
+#
+# Note: 
+#     All variables should be provided as timeslice output, and vertical profiles outputed on
+#     PRESSURE levels.
 # 
 # Run-where info:
 #    The computing of CFODD statistics may be slow depending on the data size. 

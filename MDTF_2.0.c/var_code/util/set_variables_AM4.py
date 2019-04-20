@@ -22,6 +22,9 @@ os.environ["qsat_int_var"] = "qsat_int" # Vertically-Integrated Saturation Speci
 # ------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------
+#coordinate of subcolumn 
+os.environ["subcol_coord"] = "subcol"   
+
 # Variables for CFODD warm rain microphysics Diagnostics module:
 os.environ["dtau_s_var"] = "dtau_s" # optical depth profile of stratiform clouds (input for COSP)
 os.environ["cldtop_reff_var"] = "cldtop_reff" # cloud top droplet effective radius (m)
@@ -33,10 +36,10 @@ os.environ["ice_wat_var"] = "ice_wat" # cloud liquid water mixing ratio (kg/kg)
 os.environ["temp_var"] = "temp" # cloud liquid water mixing ratio (kg/kg)
 
 # subcolumn outputs from COSP:
-os.environ["NSCOL"] = "25"    # number of subcolumns in a gridbox used in COSP
+#os.environ["NSCOL"] = "25"    # number of subcolumns in a gridbox used in COSP
 os.environ["time_freq"] = "6hr" # number of subcolumns in a gridbox used in COSP
-os.environ["dbze_var"] = "dbze_" # subcolumn CloudSat radar reflectivity from COSP - remove subcolumn number
-os.environ["cloud_type_var"] = "cloud_type_" # subcolumn cloud type from COSP - remove subcolumn number
+os.environ["dbze_var"] = "dbze94" # subcolumn CloudSat radar reflectivity from COSP - remove subcolumn number
+os.environ["cloud_type_var"] = "cldtype" # subcolumn cloud type from COSP - remove subcolumn number
 
 # End - Variables for CFODD warm rain microphysics Diagnostics package
 # ------------------------------------------------------------------------

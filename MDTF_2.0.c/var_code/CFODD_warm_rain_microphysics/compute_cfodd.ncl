@@ -14,13 +14,12 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/shea_util.ncl"
 
 ; coordinates
   time_coord = getenv("time_coord")
+  subcol_coord = getenv("subcol_coord")
   lat_coord = getenv("lat_coord")
   lon_coord = getenv("lon_coord")
   lev_coord = getenv("lev_coord")
 
 ; model setups
-  nsc_str = getenv("NSCOL")
-  nscol = stringtointeger(nsc_str)
   reff_conversion_factor=getenv("reff_conversion_factor")
   re_conv_f=stringtofloat(reff_conversion_factor)
 
@@ -37,22 +36,8 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/shea_util.ncl"
   file_temp=casename+"."+getenv("temp_var")+"."+time_freq+".nc"
   file_cldtop_reff=casename+"."+getenv("cldtop_reff_var")+"."+time_freq+".nc"
   file_cld_reff=casename+"."+getenv("cld_reff_var")+"."+time_freq+".nc"
-
-  file_dbze=new((/nscol/),"string")
-  file_ctype=new((/nscol/),"string")
-  do iscol=0,nscol-1
-    if (iscol+1 .lt. 10) then
-      idcol=sprinti("%0.1i",iscol+1)
-    else
-      if (iscol+1 .lt. 100) then
-        idcol=sprinti("%0.2i",iscol+1)
-      else
-        idcol=sprinti("%0.3i",iscol+1)
-      end if 
-    end if
-    file_dbze(iscol)=casename+"."+getenv("dbze_var")+idcol+"."+time_freq+".nc"
-    file_ctype(iscol)=casename+"."+getenv("cloud_type_var")+idcol+"."+time_freq+".nc"
-  end do
+  file_dbze=casename+"."+getenv("dbze_var")+"."+time_freq+".nc"
+  file_ctype=casename+"."+getenv("cloud_type_var")+"."+time_freq+".nc"
 
 ; variables
   dtau_s_var=getenv("dtau_s_var")
@@ -61,22 +46,8 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/shea_util.ncl"
   temp_var=getenv("temp_var")
   cldtop_reff_var=getenv("cldtop_reff_var")
   cld_reff_var=getenv("cld_reff_var")
-
-  dbze_var=new((/nscol/),"string")
-  ctype_var=new((/nscol/),"string")
-  do iscol=0,nscol-1
-    if (iscol+1 .lt. 10) then
-      idcol=sprinti("%0.1i",iscol+1)
-    else
-      if (iscol+1 .lt. 100) then
-        idcol=sprinti("%0.2i",iscol+1)
-      else
-        idcol=sprinti("%0.3i",iscol+1)
-      end if 
-    end if
-    dbze_var(iscol)=getenv("dbze_var")+idcol
-    ctype_var(iscol)=getenv("cloud_type_var")+idcol
-  end do
+  dbze_var=getenv("dbze_var")
+  ctype_var=getenv("cloud_type_var")
 
 ;------------------------------------------------------------------------------
 ; check the existance of the netCDF output file
@@ -144,79 +115,6 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/shea_util.ncl"
   end if
 
 ;------------------------------------------------------------------------------
-; read the input model data
-;------------------------------------------------------------------------------
-
-; write runwhere information to file
-  date=systemfunc("date")
-  track="[1/3]Reading input model data ... ## " + date
-  asciiwrite(variab_dir+"/CFODD_warm_rain_microphysics/run_where.txt",track)
-  delete(track)
-
-;dtau_s
-  f=addfile(data_path+"/"+file_dtau_s,"r")
-  dtau_s=f->$dtau_s_var$
-  dtau_s=where(dtau_s .gt. 0., dtau_s, 0.0) 
-
-; get coordinates 
-  ntime=dimsizes(f->$time_coord$)
-  nlev=dimsizes(f->$lev_coord$)
-  nlat=dimsizes(f->$lat_coord$)
-  nlon=dimsizes(f->$lon_coord$)
-  lat=f->$lat_coord$
-  lon=f->$lon_coord$
-  pres=f->$lev_coord$
-
-  ; check if the level coordinates is in Pa.
-  if (max(pres) .gt. 800. .and. max(pres) .lt. 1500.) 
-    pres=pres*100.  ;hPa to Pa
-  else 
-    if (max(pres) .gt. 80000. .and. max(pres) .lt. 150000.)  
-      pres=pres     
-    else 
-      print("*** Make sure the vertical coordinate is in units of hPa or Pa !! ***")
-      exit
-    end if
-  end if
-  
-;liq_wat
-  f=addfile(data_path+"/"+file_liq_wat,"r")
-  liq_wat=f->$liq_wat_var$
-  liq_wat=where(liq_wat .ge. 0., liq_wat, 0.)
-
-;ice_wat
-  f=addfile(data_path+"/"+file_ice_wat,"r")
-  ice_wat=f->$ice_wat_var$
-  ice_wat=where(ice_wat .ge. 0., ice_wat, 0.)
-
-  qcld=liq_wat+ice_wat
-
-;temp
-  f=addfile(data_path+"/"+file_temp,"r")
-  temp=f->$temp_var$
-  
-;cldtop_reff or cld_reff  
-  cldtop_reff=new((/ntime,nlat,nlon/),typeof(temp))
-  cld_reff=new((/ntime,nlev,nlat,nlon/),typeof(temp))
-  if (use_cldtop_reff) then
-    f=addfile(data_path+"/"+file_cldtop_reff,"r")
-    cldtop_reff=f->$cldtop_reff_var$
-    cldtop_reff=where(cldtop_reff .ge. 0, cldtop_reff*re_conv_f, -999.0)
-  else
-    f=addfile(data_path+"/"+file_cld_reff,"r")
-    cld_reff=f->$cld_reff_var$
-    cld_reff=where(cld_reff .ge. 0, cld_reff*re_conv_f, -999.0)
-  end if
-
-;------------------------------------------------------------------------------
-; creat the land_sea mask according to lat and lon
-;------------------------------------------------------------------------------
-  landsea_file= addfile("$NCARG_ROOT/lib/ncarg/data/cdf/landsea.nc","r")
-  lsdata=landsea_file->LSMASK
-  lsm = landsea_mask(lsdata,lat,lon) ;0=ocean, 1=land, 2=lake, 3=small island, 4=ice shelf.
-
-
-;------------------------------------------------------------------------------
 ; creat bin information (radar reflectivity and optical depth) for CFODD
 ;------------------------------------------------------------------------------
   num_rebin=6
@@ -259,24 +157,136 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/shea_util.ncl"
   end do
   ze_del=(ze_max-ze_min)/num_zebin
   
-;------------------------------------------------------------------------------
-; Identify warm clouds, save cloud top level, cloud top reff bin, and COD profile. 
-;------------------------------------------------------------------------------
 
-  ;variables for warm cloud top location, droplet reff bin, and cloud optical depth bin profile.
-  ctop_idx_wm=new((/ntime,nlat,nlon/),"integer")
-  ctop_re_bin=new((/ntime,nlat,nlon/),"integer")
-  cot_bin=new((/ntime,nlev,nlat,nlon/),"integer")
+  qcld_min=1.0e-4
+  rair=287.04 ; gas constant
+
+;--variable to count # of clouds in each bin --
+  count_cld=new((/num_rebin,num_cotbin,num_zebin/),"float")
+  count_cld(:,:,:)=0.0
+
+
+  fdbze=addfile(data_path+"/"+file_dbze,"r")
+  nscol=dimsizes(fdbze->$subcol_coord$)
+  ntime=dimsizes(fdbze->$time_coord$)
+  nlev=dimsizes(fdbze->$lev_coord$)
+  nlat=dimsizes(fdbze->$lat_coord$)
+  nlon=dimsizes(fdbze->$lon_coord$)
+  lat=fdbze->$lat_coord$
+  lon=fdbze->$lon_coord$
+  pres=fdbze->$lev_coord$
+  delete(fdbze)
+
+ ; check if the level coordinate is in Pa at first step.
+  if (max(pres) .gt. 800. .and. max(pres) .lt. 1500.) 
+    pres=pres*100.  ;hPa to Pa
+  else 
+    if (max(pres) .gt. 80000. .and. max(pres) .lt. 150000.)  
+      pres=pres     
+    else 
+      print("*** Make sure the vertical coordinate is in units of hPa or Pa !! ***")
+      exit
+    end if
+  end if
+  
+ ; check whether the level coordinate is in up-down or down-up order. 
+  if (pres(0) .lt. pres(nlev-1)) then
+    vert_ord="updown"
+  else 
+    if (pres(0) .gt. pres(nlev-1)) then
+      vert_ord="downup"
+    end if
+  end if
+  if (vert_ord .eq. "downup") then
+    pres=pres(::-1)
+  end if
+  
+;------------------------------------------------------------------------------
+; creat the land_sea mask according to lat and lon
+;------------------------------------------------------------------------------
+  landsea_file= addfile("$NCARG_ROOT/lib/ncarg/data/cdf/landsea.nc","r")
+  lsdata=landsea_file->LSMASK
+  lsm = landsea_mask(lsdata,lat,lon) ;0=ocean, 1=land, 2=lake, 3=small island, 4=ice shelf.
+  delete(landsea_file)
+
+  ctop_idx_wm=new((/nlat,nlon/),"integer")
+  ctop_re_bin=new((/nlat,nlon/),"integer")
+  cot_bin=new((/nlev,nlat,nlon/),"integer")
   ctop_idx_wm=-9999
   ctop_re_bin=-9999
   cot_bin=-9999
 
+  total_task=int2flt(nscol*ntime)
+  begtime=get_cpu_time()/60.
+  remntime=-999.
+  
+  track="-----START-----"
+  asciiwrite(variab_dir+"/CFODD_warm_rain_microphysics/run_where.txt",track)
+  delete(track)
+  
   do it=0,ntime-1
-  ; write runwhere information to file
-    date=systemfunc("date")
-    track="[2/3]Selecting warm clouds ... T="+ tostring(it) + " of "+ tostring(ntime) + " ## " +date
-    asciiwrite(variab_dir+"/CFODD_warm_rain_microphysics/run_where.txt",track)
-    delete(track)
+  
+  ;----------------------------------------------------
+  ; read input data (except for subcolumns)
+  ;----------------------------------------------------
+
+  ;liq_wat
+    f=addfile(data_path+"/"+file_liq_wat,"r")
+    liq_wat=f->$liq_wat_var$($time_coord$|it,$lev_coord$|:,$lat_coord$|:,$lon_coord$|:)
+    liq_wat=where(liq_wat .ge. 0., liq_wat, 0.)
+    delete(f)
+  
+  ;ice_wat
+    f=addfile(data_path+"/"+file_ice_wat,"r")
+    ice_wat=f->$ice_wat_var$($time_coord$|it,$lev_coord$|:,$lat_coord$|:,$lon_coord$|:)
+    ice_wat=where(ice_wat .ge. 0., ice_wat, 0.)
+    delete(f)
+
+  ;total cloud water
+    qcld=liq_wat+ice_wat
+  
+  ;dtau_s
+    f=addfile(data_path+"/"+file_dtau_s,"r")
+    dtau_s=f->$dtau_s_var$($time_coord$|it,$lev_coord$|:,$lat_coord$|:,$lon_coord$|:)
+    dtau_s=where(dtau_s .gt. 0., dtau_s, 0.0) 
+    delete(f)
+  
+  ;temp
+    f=addfile(data_path+"/"+file_temp,"r")
+    temp=f->$temp_var$($time_coord$|it,$lev_coord$|:,$lat_coord$|:,$lon_coord$|:)
+    delete(f)
+    
+  ;cldtop_reff or cld_reff  
+    if (use_cldtop_reff) then
+      f=addfile(data_path+"/"+file_cldtop_reff,"r")
+      cldtop_reff=f->$cldtop_reff_var$($time_coord$|it,$lat_coord$|:,$lon_coord$|:)
+      cldtop_reff=where(cldtop_reff .ge. 0, cldtop_reff*re_conv_f, -999.0)
+      delete(f)
+    else
+      f=addfile(data_path+"/"+file_cld_reff,"r")
+      cld_reff=f->$cld_reff_var$($time_coord$|it,$lev_coord$|:,$lat_coord$|:,$lon_coord$|:)
+      cld_reff=where(cld_reff .ge. 0, cld_reff*re_conv_f, -999.0)
+      delete(f)
+    end if
+
+  ;----------------------------------------------------
+  ; flip vertical order to updown if it is downup
+  ;----------------------------------------------------
+
+    if (vert_ord .eq. "downup") then
+      liq_wat(:,:,:) = liq_wat(::-1,:,:)
+      ice_wat(:,:,:) = ice_wat(::-1,:,:)
+      qcld(:,:,:)    = qcld(::-1,:,:) 
+      dtau_s(:,:,:)  = dtau_s(::-1,:,:) 
+      temp(:,:,:)    = temp(::-1,:,:)
+      if (.not. use_cldtop_reff) then
+        cld_reff(:,:,:) = cld_reff(::-1,:,:)
+      end if
+    end if 
+
+ ;------------------------------------------------------------------------------
+ ; Identify warm clouds, save cloud top level, cloud top reff bin, and COD profile. 
+ ;------------------------------------------------------------------------------
 
     do ilon=0,nlon-1
       do ilat=0,nlat-1
@@ -287,104 +297,118 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/shea_util.ncl"
           do ilev=0,nlev-1
 	    qcld_min=1.0e-4
 	    rair=287.04 ; gas constant
-	    qcld_tmp=pres(ilev)/(rair*temp(it,ilev,ilat,ilon)) * qcld(it,ilev,ilat,ilon)
+	    qcld_tmp=pres(ilev)/(rair*temp(ilev,ilat,ilon)) * qcld(ilev,ilat,ilon)
 	    if (qcld_tmp .gt. qcld_min) then ;detect cloud top 
-              if( temp(it,ilev,ilat,ilon) .ge. 273.15) then  ;warm cloud or not 
+              if( temp(ilev,ilat,ilon) .ge. 273.15) then  ;warm cloud or not 
 
-                ctop_idx_wm (it,ilat,ilon)=ilev  ;warm cloud top loation
+                ctop_idx_wm (ilat,ilon)=ilev  ;warm cloud top loation
                 if (use_cldtop_reff) then 
-                   ctop_re=cldtop_reff(it,ilat,ilon)
+                   ctop_re=cldtop_reff(ilat,ilon)
                 else
-                   ctop_re=cld_reff(it,cldtop_idx,ilat,ilon)
+                   ctop_re=cld_reff(cldtop_idx,ilat,ilon)
                 end if
-                ctop_re_bin(it,ilat,ilon)=floattoint(floor((ctop_re-re_min)/re_del)) ;ctop re bin
+                ctop_re_bin(ilat,ilon)=toint(floor((ctop_re-re_min)/re_del)) ;ctop re bin
               end if
-
               break
-
             end if
           end do ;ilev
 
-          if (ctop_idx_wm(it,ilat,ilon) .ge. 0) then
+          if (ctop_idx_wm(ilat,ilon) .ge. 0) then
             taud_tmp=0.0
-            do ilev=ctop_idx_wm(it,ilat,ilon),nlev-1
-              taud_tmp=taud_tmp+dtau_s(it,ilev,ilat,ilon)
-              cot_bin(it,ilev,ilat,ilon)= floattoint(floor((taud_tmp-cot_min)/cot_del))
+            do ilev=ctop_idx_wm(ilat,ilon),nlev-1
+              taud_tmp=taud_tmp+dtau_s(ilev,ilat,ilon)
+              cot_bin(ilev,ilat,ilon)= toint(floor((taud_tmp-cot_min)/cot_del))
             end do
           end if
-
         end if ; surf_type
-
       end do ;ilon
     end do ;ilat
-  end do ;it
 
-;------------------------------------------------------------------------------
-; counting numbers cloud occurence in each (reff, COD, Ze) bin. (loop through subcolumns)
-;------------------------------------------------------------------------------
-
-;--variable to count # of clouds in each bin --
-  count_cld=new((/num_rebin,num_cotbin,num_zebin/),"float")
-  count_cld(:,:,:)=0.0
-
-  total_task=int2flt(nscol*ntime)
-  curr_task=0.
-
-  do iscol=0,nscol-1
+ ;------------------------------------------------------------------------------
+ ; counting numbers cloud occurence in each (reff, COD, Ze) bin. 
+ ; loop over subcolumns within a timestep.
+ ;------------------------------------------------------------------------------
    ;1. dbze
-    f=addfile(data_path+"/"+file_dbze(iscol),"r")
-    dbze_prof=f->$dbze_var(iscol)$
+    fdbze=addfile(data_path+"/"+file_dbze,"r")
    ;2. ctype
-    f=addfile(data_path+"/"+file_ctype(iscol),"r")
-    cldtype_prof=f->$ctype_var(iscol)$
-  
-   ;---use only large scale clouds---
-    dbze_prof=where(cldtype_prof .eq. 1. .and. dbze_prof .gt. ze_min, dbze_prof, dbze_prof@_FillValue)
+    fctype=addfile(data_path+"/"+file_ctype,"r")
 
-    do it=0,ntime-1
+    if (it .eq. 0) then
+      nscol=dimsizes(fdbze->$subcol_coord$)
+    end if
 
-      curr_task=curr_task+1.0
+    do iscol=0,nscol-1
+
+      curr_task=it*nscol+iscol 
       per_task=(curr_task/total_task)*100.
      
     ; write runwhere information to file
-      date=systemfunc("date")
-      track="[3/3]Processing subcolumn "+tostring(iscol+1)+" of "+tostring(nscol)+ \
-        ",time "+tostring(it+1)+" of "+tostring(ntime)+"..."+sprintf("%5.1f",per_task)+"%. ## "+date 
+      if (remntime .gt. 0) then 
+        track="Processing time "+tostring(it+1)+" of "+tostring(ntime)+ \
+          ",subcolumn "+tostring(iscol+1)+" of "+tostring(nscol)+" ..."+ \
+          sprintf("%5.1f",per_task)+"%."+                                \
+          " Remaining time: ~"+sprintf("%5.1f",remntime)+" min."
+      else
+        track="Processing time "+tostring(it+1)+" of "+tostring(ntime)+ \
+          ",subcolumn "+tostring(iscol+1)+" of "+tostring(nscol)+" ..."+ \
+          sprintf("%5.1f",per_task)+"%."
+      end if
       asciiwrite(variab_dir+"/CFODD_warm_rain_microphysics/run_where.txt",track)
       delete(track)
 
+    ;----------------------------------------------------
+    ; read input data (subcolumns)
+    ;----------------------------------------------------
+      dbze_prof  = fdbze->$dbze_var$($subcol_coord$|iscol,$time_coord$|it,$lev_coord$|:, \
+                   $lat_coord$|:,$lon_coord$|:)
+      ctype_prof = fctype->$ctype_var$($subcol_coord$|iscol,$time_coord$|it,$lev_coord$|:, \
+                   $lat_coord$|:,$lon_coord$|:)
+
+    ; use only large scale clouds
+      dbze_prof=where(ctype_prof .eq. 1. .and. dbze_prof .gt. ze_min, dbze_prof, \
+                   dbze_prof@_FillValue)
+
       do ilon=0,nlon-1
         do ilat=0,nlat-1
-          if (ctop_idx_wm(it,ilat,ilon) .ge. 0 ) then 
-            do ilev=ctop_idx_wm(it,ilat,ilon),nlev-1
-              dbze_tmp=dbze_prof(it,ilev,ilat,ilon)
-              if (ismissing(dbze_tmp)) then 
-                continue
-              end if
-              if (dbze_tmp .ge. ze_min) then 
-                izebin= floattoint(floor((dbze_tmp-ze_min)/ze_del))
-		icotbin=cot_bin(it,ilev,ilat,ilon)
-		irebin=ctop_re_bin(it,ilat,ilon)
-                if (irebin .ge. 0 .and. irebin .lt. num_rebin .and. \
-                  icotbin .ge. 0 .and. icotbin .lt. num_cotbin .and. \
-                  izebin .ge. 0 .and. izebin .lt. num_zebin) then 
-                  count_cld(irebin,icotbin,izebin)=count_cld(irebin,icotbin,izebin)+1
+          if (surf_type .eq. 0) then  ;only over ocean
+            if (ctop_idx_wm(ilat,ilon) .ge. 0 ) then 
+              do ilev=ctop_idx_wm(ilat,ilon),nlev-1
+                dbze_tmp=dbze_prof(ilev,ilat,ilon)
+                if (ismissing(dbze_tmp)) then 
+                  continue
                 end if
-              end if
-            end do ;ilev
-	  end if
-
+                if (dbze_tmp .ge. ze_min) then 
+                  izebin= toint(floor((dbze_tmp-ze_min)/ze_del))
+	          icotbin=cot_bin(ilev,ilat,ilon)
+	          irebin=ctop_re_bin(ilat,ilon)
+                  if (irebin .ge. 0 .and. irebin .lt. num_rebin .and. \
+                    icotbin .ge. 0 .and. icotbin .lt. num_cotbin .and. \
+                    izebin .ge. 0 .and. izebin .lt. num_zebin) then 
+                    count_cld(irebin,icotbin,izebin)=count_cld(irebin,icotbin,izebin)+1
+                  end if
+                end if 
+              end do ;ilev
+	    end if ; ctop_idx_wm .ge. 0 
+	  end if ;surf_type .eq. 0
         end do ;ilon
       end do ;ilat
-    end do ;it
 
-  end do ;iscol
-  
-;------------------------------------------------------------------------------
-; Calculating PDFs used to plot CFODD according to the counts
-;------------------------------------------------------------------------------
-  
-  ; compute pdf 
+    end do ;iscol
+
+    nowtime=get_cpu_time()/60.
+    elaptime=nowtime-begtime
+    steptime=tofloat(elaptime)/tofloat(it+1)
+    remntime=(tofloat(ntime)-tofloat(it+1))*steptime
+
+    ctop_idx_wm=-9999
+    ctop_re_bin=-9999
+    cot_bin=-9999
+  end do ;it
+
+;----------------------------------------------------
+; compute PDF
+;----------------------------------------------------
+
   do ii=0,num_rebin-1
    do jj=0,num_cotbin-1
      count_cld_sum(ii,jj)=sum(count_cld(ii,jj,:))
@@ -410,10 +434,16 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/shea_util.ncl"
   count_cld_sum&cot=cotbnd_center
   
 ;------------------------------------------------------------------------------
-; Writing PDFs and counts to netCDF file
+; Write PDFs and counts to netCDF file
 ;------------------------------------------------------------------------------
   fo = addfile(variab_dir+"/CFODD_warm_rain_microphysics/model/netCDF/"+casename+".CFODD_ocean.nc","c")
   fo->cfodd = pdfcz
   fo->count = count_cld_sum
   
+  nowtime=get_cpu_time()/60.
+  elaptime=nowtime-begtime
+  track="FINISHED. Elapsed time = " + sprintf("%5.1f",elaptime)+" min."
+  asciiwrite(variab_dir+"/CFODD_warm_rain_microphysics/run_where.txt",track)
+  delete(track)
+
   end
